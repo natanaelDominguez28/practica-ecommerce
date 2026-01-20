@@ -1,7 +1,33 @@
 import styles from './CartModal.module.css';
 import Close from '../../../assets/close.svg';
+import type { FC } from 'react';
+import useCartContext from '../../../hooks/useCartContext';
+import type { CartProduct } from '../../../interface';
 
-export const CartModal = ({handleShowCartModal}) => {
+interface Props{
+    handleShowCartModal: () => void
+}
+
+export const CartModal: FC<Props> = ({handleShowCartModal}) => {
+
+    const {state:{cartItems}, dispatch} = useCartContext();
+
+    const removeToCart = (item: CartProduct) => {
+        dispatch ({type: "REMOVE_FROM_CART", payload: item})
+    }
+
+    const addToCart = (item: CartProduct) => {
+        dispatch ({type: "ADD_TO_CART", payload: item})
+    }
+
+    const totalPay = () => {
+        const total = cartItems.reduce((acc, item)=>{
+            return acc + item.price * item.quantity
+        },0)
+
+        return total;
+    }
+
   return (
     <div className={styles.modalContainer}>
         <button className={styles.modalCloseButton} onClick={handleShowCartModal}>
@@ -17,22 +43,27 @@ export const CartModal = ({handleShowCartModal}) => {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>name</td>
+                {cartItems.map(item => (
+                    <tr key={item.id}>
                     <td>
-                        <button className={styles.modalButtonRemove}>-1</button>
+                        <p>{item.name}</p>
                     </td>
                     <td>
-                        12
+                        <button className={styles.modalButtonRemove} onClick={() => removeToCart(item)}>-1</button>
                     </td>
                     <td>
-                        <button className={styles.modalButtonAdd}>+1</button>
+                        <p>{item.quantity}</p>
+                    </td>
+                    <td>
+                        <button className={styles.modalButtonAdd}
+                        onClick={() => addToCart(item)}>+1</button>
                     </td>
                 </tr>
+                ))}
             </tbody>
         </table>
         <div className={styles.modalTotalContainer}>
-            <h3>Total: 400,00</h3>
+            <h3>${totalPay()}</h3>
         </div>
         <div className={styles.modalButtonContainer}>
             <button>Checkout</button>
