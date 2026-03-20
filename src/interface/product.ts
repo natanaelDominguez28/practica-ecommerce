@@ -26,3 +26,8 @@ export interface CartProduct{
   quantity: number;
   price: number;
 }
+
+export interface PaginatedResponse {
+  data: Product[]
+  pages: number
+}

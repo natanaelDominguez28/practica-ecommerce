@@ -16,7 +16,6 @@ const Home = () => {
     {keepPreviousData: true})
 
   const products = data?.data || []
-  const totalPages = data?.pages || 1
 
   // const [products, setProducts] = useState<Product[]>([])
   // const [error, setError] = useState(false)

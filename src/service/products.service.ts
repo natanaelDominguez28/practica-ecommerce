@@ -1,6 +1,6 @@
-import type { Product } from "../interface"
+import type { PaginatedResponse, Product } from "../interface"
 
-export const getProducts = async (page=1): Promise<Product[]> => {   
+export const getProducts = async (page=1): Promise<PaginatedResponse> => {   
     try{
       const response = await fetch(`http://localhost:3000/products?_page=${page}&_per_page=24`)
       if (response.ok){
