@@ -5,6 +5,7 @@ import { getProducts } from "../../service"
 import { Toaster } from "sonner"
 import { useQuery } from "react-query"
 import { useState } from "react"
+import type { Product } from "../../interface"
 
 const Home = () => {
 
@@ -13,6 +14,9 @@ const Home = () => {
   const { data, isLoading, error } = useQuery(
     ["products", page], () => getProducts(page), 
     {keepPreviousData: true})
+
+  const products = data?.data || []
+  const totalPages = data?.pages || 1
 
   // const [products, setProducts] = useState<Product[]>([])
   // const [error, setError] = useState(false)
@@ -35,7 +39,7 @@ const Home = () => {
       { isLoading && <p>Loading...</p>}
       { error && <p>Something went wrong</p>}
       <div className={styles.container}>
-        {data?.data.map((product)=> (
+        {products.map((product: Product)=> (
           <CardProduct key={product.id} product={product} />
         ))}
       </div>
