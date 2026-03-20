@@ -52,6 +52,8 @@ export const CardCredit = () => {
         })
 
         dispatch({type: "CLEAR_CART", payload: {} as CartProduct})
+
+        toast.success("Payment successful");
     }
 
   return (
