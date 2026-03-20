@@ -40,9 +40,26 @@ Proyecto integrador desarrollado durante el curso **React + Redux con TypeScript
 
 🔗 **[https://dh-ecommerce.netlify.app/](https://dh-ecommerce.netlify.app/)**
 
-> 📸 *Capturas de pantalla — agregar imágenes aquí*
->
-> Sugerencia: capturar la página de inicio (catálogo), la vista de detalle de producto, el carrito y el checkout.
+### Hero — Banner principal
+![Hero](./screenshots/hero.png)
+
+### Catálogo de productos con paginación
+![Catálogo](./screenshots/catalogo.png)
+![Paginación y toast](./screenshots/paginacion.png)
+
+### Carrito de compras
+![Carrito modal](./screenshots/carrito.png)
+
+### Checkout — Formulario de pago
+![Checkout](./screenshots/checkout.png)
+![Validación de campos](./screenshots/checkout-validacion.png)
+
+### Previsualización dinámica de tarjeta
+![Tarjeta frente](./screenshots/tarjeta-frente.png)
+![Tarjeta dorso (CVC)](./screenshots/tarjeta-dorso.png)
+
+### Pago exitoso
+![Pago exitoso](./screenshots/pago-exitoso.png)
 
 ---
 
@@ -54,6 +71,7 @@ Proyecto integrador desarrollado durante el curso **React + Redux con TypeScript
 ### 🛒 Carrito de compras
 - Agregar y eliminar productos del carrito
 - Visualización del total y cantidad de ítems
+- Persistencia del estado del carrito durante la sesión
 
 ### 💳 Checkout
 - Formulario de pago con previsualización dinámica de tarjeta de crédito (react-credit-cards-2)
@@ -68,6 +86,9 @@ Proyecto integrador desarrollado durante el curso **React + Redux con TypeScript
 ---
 
 ## 🏗️ Arquitectura y decisiones técnicas
+
+### Gestión del carrito con Context API + useReducer
+El estado del carrito se gestiona con el patrón **Context + useReducer**, una alternativa a Redux que combina la distribución global de estado de la Context API con la gestión predecible de acciones de un reducer. Se definieron tres acciones (`ADD_TO_CART`, `REMOVE_FROM_CART`, `CLEAR_CART`) con lógica de incremento/decremento de cantidad, y se expone el estado y el dispatch a través de un contexto dedicado accesible desde cualquier componente.
 
 ### Gestión del estado del servidor con React Query
 Se optó por **React Query** para el fetching y caché de los datos del servidor en lugar de manejarlos manualmente con `useEffect` + `useState`. Esto simplifica el código al centralizar los estados de `loading`, `error` y `data`, y evita re-fetching innecesario gracias al sistema de caché.
@@ -142,30 +163,27 @@ La app estará disponible en `http://localhost:5173`
 
 ```
 practica-ecommerce/
-├── public/
-│   └── db.json                 # Catálogo de productos (archivo estático)
+├── public/                     # Archivos estáticos
+│   └── db.json                 # Catálogo de productos Amiibo
 ├── src/
-│   ├── assets/ 
-│   ├── components/         # Componentes reutilizables
-    ├── context/ 
-    ├── hooks/              # Custom hooks (React Query, lógica)
-    ├── interface/ 
-│   ├── pages/              # Vistas / páginas de la app
-│   ├── service/              
-│   ├── types/              # Tipos e interfaces de TypeScript
-│   └── main.tsx            # Punto de entrada
+│   ├── assets/                 # Imágenes y recursos estáticos
+│   ├── components/             # Componentes reutilizables de UI
+│   ├── context/                # Contextos de React (estado global)
+│   ├── hooks/                  # Custom hooks
+│   ├── interface/              # Tipos e interfaces de TypeScript
+│   ├── pages/                  # Vistas / páginas de la app
+│   ├── service/                # Lógica de fetching y llamadas a datos
+│   ├── App.css
+│   ├── App.tsx
+│   ├── index.css
+│   └── main.tsx                # Punto de entrada
 ├── index.html
 ├── vite.config.ts
 └── package.json
 ```
-
-> ⚠️ La estructura interna de `src/` puede variar. Actualizar según la organización real del proyecto.
-
----
 
 ## 👤 Autor
 
 **Natanael Dominguez**
 
 - GitHub: [@natanaelDominguez28](https://github.com/natanaelDominguez28)
-
