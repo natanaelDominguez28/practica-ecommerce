@@ -7,6 +7,7 @@ import { createProduct } from '../../service'
 const Dashboard = () => {
 
     const [product, setProduct] = useState({
+        id: 0,
         amiiboSeries: '',
         character: '',
         gameSeries: '',
