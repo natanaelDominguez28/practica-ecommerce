@@ -35,8 +35,8 @@ const Home = () => {
       { isLoading && <p>Loading...</p>}
       { error && <p>Something went wrong</p>}
       <div className={styles.container}>
-        {data?.map((product)=> (
-          <CardProduct key={product.tail} product={product} />
+        {data?.data.map((product)=> (
+          <CardProduct key={product.id} product={product} />
         ))}
       </div>
       <div className={styles.paginationContainer}>
@@ -44,7 +44,7 @@ const Home = () => {
         <div className={styles.pageNumber}>
           <span>{page}</span>
         </div>
-        <button onClick={() => setPage(page + 1)} className={styles.paginationButton}>next page</button>
+        <button onClick={() => setPage(page + 1)} disabled={page===data?.pages} className={styles.paginationButton}>next page</button>
       </div>
     </>
   )
