@@ -5,7 +5,10 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import useCartContext from '../../../hooks/useCartContext';
 import type { CartProduct } from '../../../interface';
+import { useNavigate } from 'react-router-dom';
 export const CardCredit = () => {
+
+    const navigate = useNavigate();
 
    const [cardData, setCardData] = useState({
         number: "",
@@ -54,6 +57,7 @@ export const CardCredit = () => {
         dispatch({type: "CLEAR_CART", payload: {} as CartProduct})
 
         toast.success("Payment successful");
+        setTimeout(() => navigate('/'), 1500)
     }
 
   return (
